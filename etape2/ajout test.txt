@@ -1,0 +1,8 @@
+ajout de test:
+
+//   TODO: write test
+	it('should highlight "Completed" filter when switching to completed view', function () {
+		setUpModel([]);
+		subject.setView('#/completed');
+		expect(view.render).toHaveBeenCalledWith('setFilter','completed');
+	});
