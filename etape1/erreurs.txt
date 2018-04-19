@@ -1,0 +1,88 @@
+﻿**********************************************************************************************
+-erreur nom du fichier:getFile('exemple.json', Learn);
+ base.js - ligne 248
+correction:
+getFile('learn.json', Learn);
+
+**********************************************************************************************
+-erreur de frappe:
+controller.js- ligne 95 :
+Controller.prototype.adddItem = function (title) // erreur de frappe
+***********************************************************************************************
+-affichage logs: boucle et mesage superflu 
+controller.js - ligne 158 :
+/*
+Controller.prototype.removeItem = function (id) {
+		var self = this;
+		var items;
+		self.model.read(function(data) {
+			items = data;
+		});
+
+		items.forEach(function(item) {
+			if (item.id === id) {
+				console.log("Element with ID: " + id + " has been removed.");
+			}
+		});
+
+		self.model.remove(id, function () {
+			self.view.render('removeItem', id);
+		});
+
+		self._filter();
+	};
+*/
+********************************************************************************************
+-store.js: ligne 83
+peut arriver creation de 2 id identiques parce que generation par random
+/*
+// Generate an ID
+	    var newId = ""; 
+	    var charset = "0123456789";
+
+        for (var i = 0; i < 6; i++) {
+     		newId += charset.charAt(Math.floor(Math.random() * charset.length));
+		}
+
+		// If an ID was actually given, find the item and update each property
+		if (id) {
+			for (var i = 0; i < todos.length; i++) {
+				if (todos[i].id === id) {
+					for (var key in updateData) {
+						todos[i][key] = updateData[key];
+					}
+					break;
+				}
+			}
+
+			localStorage[this._dbName] = JSON.stringify(data);
+			callback.call(this, todos);
+		} else {
+
+    		// Assign an ID
+			updateData.id = parseInt(newId);
+    
+
+			todos.push(updateData);
+			localStorage[this._dbName] = JSON.stringify(data);
+			callback.call(this, [updateData]);
+		}
+
+*/
+remplacement par la creation id unique en utilisant la fonction Date():
+ updateData.id = new Date().getTime(); // unique id
+et deplacement de la creation de l'id  dans la boucle else
+
+id unique (exemples):
+new Date().getTime()
+1518779907267
+new Date().getTime()
+1518779914650
+new Date().getTime()
+1518779924410
+
+
+
+
+
+
